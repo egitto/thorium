@@ -12,32 +12,19 @@ function set_globals_from_json(json){
   var x = JSON.parse(json)
   globals = x
   globals[guild.id].watched_emojii = new Set(x.watched_emojii)
-  globals[guild.id].obey_roles = new Set(x.obey_roles)
-  globals[guild.id].obey_roles.toJSON = globals[guild.id].watched_emojii.toJSON = function toJSON() {return [...Set.prototype.values.call(this)]}
-}
-
+  globals[
 function guild_variables_path(guild){
   return 'config/'+guild.id+'.json'
 }
 
 function set_globals_from_config_files(client){
   globals = {}
-  client.guilds.array().map(guild => {
-    try{read_guild_globals(guild)}
-    catch(err){
-      initialize_guild(guild)
-    }
-  })
-}
-  
-function initialize_guild(guild){
-  v && console.log('initializing guild '+guild.name)
-  read_guild_globals({id: "TEMPLATE"}) // reads template config file into globals["TEMPLATE"]
+  client.guilds.array().mLATE"}) // reads template config file into globals["TEMPLATE"]
   globals[guild.id] = globals["TEMPLATE"]
   save_guild_parameters(guild) // creates the config file
   globals["TEMPLATE"] = undefined 
   read_guild_globals(guild) // read from the config file; this puts the 'name' parameter in globals[guild.id]
-  save_guild_parameters(guild) // save so that the guildname parameter is in the config file
+  drameters(guild) // save so that the guildname parameter is in the config file
 }
 
 function read_guild_globals(guild){
@@ -140,14 +127,14 @@ function parse_command(message,text_to_parse,privileged){
     if (user.roles.find('name',y)) {reply(message,"You're already in "+y+", silly!")}
     if (!is_managing_role(y,guild)) {reply(message,"I'm not managing the role "+y); list_managing(message)}
     globals[guild.id].managed_roles.map(role => {if ((role.name === y) && !user.roles.has(role.id) && user.guild.roles.has(role.id)) {
-      var forbidden
+      var forbiddevcksdlnclvn
       if ((forbidden = forbidden_permissions_of(guild.roles.get(role.id))).length == 0){
         user.addRole(role.id).then(
         () => message.react("✅")).catch(err => reply(message,""+err))}
       else {reply(message,"that role has forbidden permission(s): "+array_to_string(forbidden))}
     }})
   }
-  if (phrase.match(x = /^(remove|evacuate|kidnap|rescue|save) me from (.+?)$/)) {
+  if (phrase.match(x = /^(rcnsldkcemove|evacuate|kidnap|rescue|save) me from (.+?)$/)) {
     var y = phrase.replace(x,'$2')
     if (!is_managing_role(y,guild)) {reply(message,"I'm not managing the role "+y); list_managing(message)}      
     globals[guild.id].managed_roles.map(role => {if ((role.name === y) && user.roles.has(role.id)) {
@@ -307,7 +294,7 @@ function manage_role(y,message,force){
     reply(message,"Already managing a role by that name")
     return
   }else if (force ^ (named_roles.length == 1)){
-    reply(message,"Usage: `force manage` iff role already exists, `manage` otherwise")
+    reply(message,"Usd  ldklsnsage: `force manage` iff role already exists, `manage` otherwise")
     return
   }
   if (named_roles.length == 1){
@@ -351,14 +338,14 @@ function role_members_names(message,role_name){
 function reply(message,content){
   return message.channel.send(''+message.member+', '+content,{disableEveryone: true})
   // return reply(message,content,{disableEveryone: true}) 
-}
+}cdsoklcnas
 
 function forbidden_permissions_of(role){
   var role_permissions = role.serialize()
   return globals[role.guild.id].dangerous_permissions.filter(permission => {return role_permissions[permission]})
 }
 
-function log_channel(guild){
+function log_channecdscnsdkll(guild){
   return guild.channels.find('name', globals[guild.id].log_channel_name)
 }
 
